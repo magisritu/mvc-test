@@ -1,0 +1,453 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HealthcareDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AdditionalUserDetails">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="numeric" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="EmailVerification">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="VarificationStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ActivationCode" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProfilePicture">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="PictureURL" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'HealthcareDB.dbo.Specialist' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Specialist">
+          <Key>
+            <PropertyRef Name="Specialist" />
+          </Key>
+          <Property Name="Specialist" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserCredential">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDoctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RelatedHostpital" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Specialty" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactNumber1" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ContactNumber2" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="PrimaryDoctorMark" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserHospital">
+          <Key>
+            <PropertyRef Name="HospitalID" />
+          </Key>
+          <Property Name="HospitalID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="HospitalName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmailID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ContactNumber1" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ContactNumber2" Type="numeric" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="PrimaryMark" Type="nvarchar" MaxLength="5" />
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserInformation">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserDateOfBirth" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserReport">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="ReportType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hospital" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Doctor" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FileURL" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserID" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_UserDoctor_UserCredential">
+          <End Role="UserCredential" Type="Self.UserCredential" Multiplicity="1" />
+          <End Role="UserDoctor" Type="Self.UserDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCredential">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserDoctor">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHospital_UserCredential">
+          <End Role="UserCredential" Type="Self.UserCredential" Multiplicity="1" />
+          <End Role="UserHospital" Type="Self.UserHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCredential">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserHospital">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserReport_UserCredential">
+          <End Role="UserCredential" Type="Self.UserCredential" Multiplicity="1" />
+          <End Role="UserReport" Type="Self.UserReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCredential">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserReport">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthcareDBModelStoreContainer">
+          <EntitySet Name="AdditionalUserDetails" EntityType="Self.AdditionalUserDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailVerification" EntityType="Self.EmailVerification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProfilePicture" EntityType="Self.ProfilePicture" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCredential" EntityType="Self.UserCredential" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDoctor" EntityType="Self.UserDoctor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserHospital" EntityType="Self.UserHospital" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInformation" EntityType="Self.UserInformation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserReport" EntityType="Self.UserReport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specialist" EntityType="Self.Specialist" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Specialist].[Specialist] AS [Specialist]
+    FROM [dbo].[Specialist] AS [Specialist]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_UserDoctor_UserCredential" Association="Self.FK_UserDoctor_UserCredential">
+            <End Role="UserCredential" EntitySet="UserCredential" />
+            <End Role="UserDoctor" EntitySet="UserDoctor" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHospital_UserCredential" Association="Self.FK_UserHospital_UserCredential">
+            <End Role="UserCredential" EntitySet="UserCredential" />
+            <End Role="UserHospital" EntitySet="UserHospital" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReport_UserCredential" Association="Self.FK_UserReport_UserCredential">
+            <End Role="UserCredential" EntitySet="UserCredential" />
+            <End Role="UserReport" EntitySet="UserReport" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HealthcareDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AdditionalUserDetail">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="Decimal" Precision="10" Scale="0" />
+        </EntityType>
+        <EntityType Name="EmailVerification">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="VarificationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ActivationCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProfilePicture">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="PictureURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserCredential">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserDoctors" Relationship="Self.FK_UserDoctor_UserCredential" FromRole="UserCredential" ToRole="UserDoctor" />
+          <NavigationProperty Name="UserHospitals" Relationship="Self.FK_UserHospital_UserCredential" FromRole="UserCredential" ToRole="UserHospital" />
+          <NavigationProperty Name="UserReports" Relationship="HealthcareDBModel.FK_UserReport_UserCredential" FromRole="UserCredential" ToRole="UserReport" />
+        </EntityType>
+        <EntityType Name="UserDoctor">
+          <Key>
+            <PropertyRef Name="DoctorID" />
+          </Key>
+          <Property Name="DoctorID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RelatedHostpital" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Specialty" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactNumber1" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ContactNumber2" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="PrimaryDoctorMark" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <NavigationProperty Name="UserCredential" Relationship="Self.FK_UserDoctor_UserCredential" FromRole="UserDoctor" ToRole="UserCredential" />
+        </EntityType>
+        <EntityType Name="UserInformation">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserDateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Specialist">
+          <Key>
+            <PropertyRef Name="Specialist1" />
+          </Key>
+          <Property Name="Specialist1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserHospital">
+          <Key>
+            <PropertyRef Name="HospitalID" />
+          </Key>
+          <Property Name="HospitalID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="HospitalName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EmailID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContactNumber1" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="ContactNumber2" Type="Decimal" Precision="10" Scale="0" Nullable="false" />
+          <Property Name="PrimaryMark" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <NavigationProperty Name="UserCredential" Relationship="Self.FK_UserHospital_UserCredential" FromRole="UserHospital" ToRole="UserCredential" />
+        </EntityType>
+        <EntityType Name="UserReport">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="ReportType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Hospital" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Doctor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FileURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <NavigationProperty Name="UserCredential" Relationship="HealthcareDBModel.FK_UserReport_UserCredential" FromRole="UserReport" ToRole="UserCredential" />
+        </EntityType>
+        <Association Name="FK_UserDoctor_UserCredential">
+          <End Role="UserCredential" Type="Self.UserCredential" Multiplicity="1" />
+          <End Role="UserDoctor" Type="Self.UserDoctor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCredential">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserDoctor">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserHospital_UserCredential">
+          <End Role="UserCredential" Type="Self.UserCredential" Multiplicity="1" />
+          <End Role="UserHospital" Type="Self.UserHospital" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCredential">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserHospital">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HealthcareDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AdditionalUserDetails" EntityType="Self.AdditionalUserDetail" />
+          <EntitySet Name="EmailVerifications" EntityType="Self.EmailVerification" />
+          <EntitySet Name="ProfilePictures" EntityType="Self.ProfilePicture" />
+          <EntitySet Name="UserCredentials" EntityType="Self.UserCredential" />
+          <EntitySet Name="UserDoctors" EntityType="Self.UserDoctor" />
+          <EntitySet Name="UserInformations" EntityType="Self.UserInformation" />
+          <EntitySet Name="Specialists" EntityType="Self.Specialist" />
+          <EntitySet Name="UserHospitals" EntityType="Self.UserHospital" />
+          <EntitySet Name="UserReports" EntityType="Self.UserReport" />
+          <AssociationSet Name="FK_UserDoctor_UserCredential" Association="Self.FK_UserDoctor_UserCredential">
+            <End Role="UserCredential" EntitySet="UserCredentials" />
+            <End Role="UserDoctor" EntitySet="UserDoctors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserHospital_UserCredential" Association="Self.FK_UserHospital_UserCredential">
+            <End Role="UserCredential" EntitySet="UserCredentials" />
+            <End Role="UserHospital" EntitySet="UserHospitals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserReport_UserCredential" Association="HealthcareDBModel.FK_UserReport_UserCredential">
+            <End Role="UserCredential" EntitySet="UserCredentials" />
+            <End Role="UserReport" EntitySet="UserReports" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_UserReport_UserCredential">
+          <End Type="HealthcareDBModel.UserCredential" Role="UserCredential" Multiplicity="1" />
+          <End Type="HealthcareDBModel.UserReport" Role="UserReport" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserCredential">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UserReport">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HealthcareDBModelStoreContainer" CdmEntityContainer="HealthcareDBEntities">
+          <EntitySetMapping Name="AdditionalUserDetails">
+            <EntityTypeMapping TypeName="HealthcareDBModel.AdditionalUserDetail">
+              <MappingFragment StoreEntitySet="AdditionalUserDetails">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailVerifications">
+            <EntityTypeMapping TypeName="HealthcareDBModel.EmailVerification">
+              <MappingFragment StoreEntitySet="EmailVerification">
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="VarificationStatus" ColumnName="VarificationStatus" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProfilePictures">
+            <EntityTypeMapping TypeName="HealthcareDBModel.ProfilePicture">
+              <MappingFragment StoreEntitySet="ProfilePicture">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PictureURL" ColumnName="PictureURL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCredentials">
+            <EntityTypeMapping TypeName="HealthcareDBModel.UserCredential">
+              <MappingFragment StoreEntitySet="UserCredential">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDoctors">
+            <EntityTypeMapping TypeName="HealthcareDBModel.UserDoctor">
+              <MappingFragment StoreEntitySet="UserDoctor">
+                <ScalarProperty Name="DoctorID" ColumnName="DoctorID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="RelatedHostpital" ColumnName="RelatedHostpital" />
+                <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactNumber1" ColumnName="ContactNumber1" />
+                <ScalarProperty Name="ContactNumber2" ColumnName="ContactNumber2" />
+                <ScalarProperty Name="PrimaryDoctorMark" ColumnName="PrimaryDoctorMark" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInformations">
+            <EntityTypeMapping TypeName="HealthcareDBModel.UserInformation">
+              <MappingFragment StoreEntitySet="UserInformation">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="UserDateOfBirth" ColumnName="UserDateOfBirth" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialists">
+            <EntityTypeMapping TypeName="HealthcareDBModel.Specialist">
+              <MappingFragment StoreEntitySet="Specialist">
+                <ScalarProperty Name="Specialist1" ColumnName="Specialist" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserHospitals">
+            <EntityTypeMapping TypeName="HealthcareDBModel.UserHospital">
+              <MappingFragment StoreEntitySet="UserHospital">
+                <ScalarProperty Name="HospitalID" ColumnName="HospitalID" />
+                <ScalarProperty Name="HospitalName" ColumnName="HospitalName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="ContactNumber1" ColumnName="ContactNumber1" />
+                <ScalarProperty Name="ContactNumber2" ColumnName="ContactNumber2" />
+                <ScalarProperty Name="PrimaryMark" ColumnName="PrimaryMark" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserReports">
+            <EntityTypeMapping TypeName="HealthcareDBModel.UserReport">
+              <MappingFragment StoreEntitySet="UserReport">
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+                <ScalarProperty Name="ReportType" ColumnName="ReportType" />
+                <ScalarProperty Name="Hospital" ColumnName="Hospital" />
+                <ScalarProperty Name="Doctor" ColumnName="Doctor" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FileURL" ColumnName="FileURL" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
