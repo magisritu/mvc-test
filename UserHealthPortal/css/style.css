@@ -85,12 +85,12 @@ canvas{
 
 /* ---- particles.js container ---- */
 
-#particles-js{
-  width: 100%;
-  height: 100%;
-  background-color: #86b1ff;
-  background-image: url('');
-  background-size: cover;
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
+#particles-js {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,57,101,0.2);
+    background-image: url('');
+    background-size: cover;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
